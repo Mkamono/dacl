@@ -5,6 +5,6 @@ _var:
     name: "test"
 
 service:
-  name: "my-app"
+  name: "myapp"
   listen_port: 8080
   conf_name: "test"
