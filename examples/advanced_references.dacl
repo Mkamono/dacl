@@ -1,0 +1,37 @@
+# 変数定義セクション（推奨）
+_var:
+  app_name_prefix: "MyProd"
+  default_port: 8080
+  default_log_level: "debug"
+  storage_base_path: "/mnt/data"
+
+# サービス設定
+service:
+  id: "web-server-01"
+  name: "${_var.app_name_prefix}-WebApp" # 内部パス参照と文字列結合
+  instance_type: "t2.medium"
+  listen_port: ${env:APP_LISTEN_PORT:-${_var.default_port}} # 環境変数参照、未設定なら_varのデフォルトポート
+
+# ログ設定
+logging:
+  level: ${env:LOG_LEVEL:-${_var.default_log_level}} # 環境変数参照、未設定なら_varのログレベル
+  file_path: "${_var.storage_base_path}/logs/${service.name}.log" # 複数の参照と文字列結合
+  rotation:
+    max_size_mb: 50
+    keep_days: 7
+
+# データベース接続情報（機密情報は環境変数から取得）
+database:
+  driver: "PostgreSQL"
+  host: ${env:DB_HOST} # 必須の環境変数参照
+  port: ${env:DB_PORT:-5432} # 環境変数参照、未設定ならデフォルトポート
+  username: ${env:DB_USER:-"app_user"} # 環境変数参照、未設定ならデフォルトユーザー名
+  password: "${env:DB_PASSWORD}" # 必須の環境変数参照（文字列として取得）
+  connection_string: "jdbc:${database.driver}://${database.host}:${database.port}/${env:DB_NAME:-"mydb"}" # 複数参照
+
+# 設定確認用
+resolved_values:
+  application_full_name: "${service.name} v${service.version}" # service.versionはbasic_configにないが、このファイル単体で有効
+  # Note: service.versionはここにはないので、このファイル単体では解決できない。
+  # 別のファイルからインポートして参照されることを想定。
+  # この例ではエラーになるか、nullになるか、実装依存。DACLの仕様ではエラー。

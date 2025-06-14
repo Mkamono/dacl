@@ -1,0 +1,40 @@
+# サービス全般の設定
+service:
+  name: "MyApplication"
+  version: "1.0.0"
+  enabled: true # 真偽値
+  start_port: 8080 # 整数
+  debug_mode: false
+
+# ログ設定
+logging:
+  level: "info" # 文字列はダブルクォーテーション必須
+  output_format: "json"
+  max_log_size_mb: 100 # 整数
+  compress_old_logs: true
+
+# ユーザーリストの例
+users:
+  - name: "Alice Smith"
+    id: 1001
+    is_admin: true
+  - name: "Bob Johnson"
+    id: 1002
+    is_admin: false
+  - name: "Charlie Brown"
+    id: 1003
+    is_admin: false
+
+# ネットワーク設定
+network:
+  timeout_seconds: 30 # 整数
+  max_connections: 500 # 整数（アンダースコアはセパレータとして使用可能）
+  connection_retries: 3_000_000 # 大きな整数
+  keep_alive_interval: 1.5 # 浮動小数点数
+  ipv6_enabled: null # Null値
+
+# 環境固有の設定（コメント）
+# development_environment:
+#   api_url: "http://localhost:3000/api"
+# production_environment:
+#   api_url: "https://api.example.com/v1"

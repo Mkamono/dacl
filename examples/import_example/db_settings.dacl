@@ -1,0 +1,8 @@
+# データベースのデフォルト設定
+
+type: "postgresql"
+host: "localhost"
+port: 5432
+user: "default_user"
+schema: "public"
+connection_timeout_ms: 10000
