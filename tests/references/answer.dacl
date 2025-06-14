@@ -1,0 +1,10 @@
+_var:
+  app_name: "myapp"
+  port: 8080
+  config:
+    name: "test"
+
+service:
+  name: "my-app"
+  listen_port: 8080
+  conf_name: "test"

@@ -1,0 +1,8 @@
+app_name: "myapp"
+version: "1.0.0"
+
+service:
+  name: "${app_name}-service"
+  full_name: "${app_name} v${version}"
+  log_file: "/var/log/${app_name}.log"
+  conf: "/var/log/${env:DB_HOST:-'localhost'}:${env:DB_PORT}:${env:DB_NAME:-'postgres'}.log"

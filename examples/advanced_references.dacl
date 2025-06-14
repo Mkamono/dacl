@@ -25,13 +25,11 @@ database:
   driver: "PostgreSQL"
   host: ${env:DB_HOST} # 必須の環境変数参照
   port: ${env:DB_PORT:-5432} # 環境変数参照、未設定ならデフォルトポート
-  username: ${env:DB_USER:-"app_user"} # 環境変数参照、未設定ならデフォルトユーザー名
+  username: ${env:DB_USER:-'app_user'} # 環境変数参照、未設定ならデフォルトユーザー名（シングルクォート使用）
   password: "${env:DB_PASSWORD}" # 必須の環境変数参照（文字列として取得）
-  connection_string: "jdbc:${database.driver}://${database.host}:${database.port}/${env:DB_NAME:-"mydb"}" # 複数参照
+  connection_string: "jdbc:${database.driver}://${database.host}:${database.port}/${env:DB_NAME:-'mydb'}" # 複数参照（シングルクォート使用）
 
 # 設定確認用
 resolved_values:
-  application_full_name: "${service.name} v${service.version}" # service.versionはbasic_configにないが、このファイル単体で有効
-  # Note: service.versionはここにはないので、このファイル単体では解決できない。
-  # 別のファイルからインポートして参照されることを想定。
-  # この例ではエラーになるか、nullになるか、実装依存。DACLの仕様ではエラー。
+  application_full_name: "${service.name} v${env:APP_VERSION:-'1.0.0'}" # シングルクォートでデフォルト値
+  error_message: "${env:ERROR_MSG:-'Application error occurred'}"

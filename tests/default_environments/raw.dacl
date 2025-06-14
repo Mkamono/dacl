@@ -1,0 +1,3 @@
+database:
+  host: ${env:DB_HOST:-"locahost"}
+  port: ${env:DB_PORT:-5432}

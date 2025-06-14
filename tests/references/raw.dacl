@@ -1,0 +1,10 @@
+_var:
+  app_name: "myapp"
+  port: 8080
+  config:
+    name: "test"
+
+service:
+  name: ${_var.app_name}
+  listen_port: ${_var.port}
+  conf_name: ${_var.config.name}

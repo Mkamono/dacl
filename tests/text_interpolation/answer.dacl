@@ -1,0 +1,8 @@
+app_name: "myapp"
+version: "1.0.0"
+
+service:
+  name: "myapp-service"
+  full_name: "myapp v1.0.0"
+  log_file: "/var/log/myapp.log"
+  conf: "/var/log/another_host:4000:postgres.log"
